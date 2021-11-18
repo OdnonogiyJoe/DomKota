@@ -53,8 +53,8 @@ namespace DomKota.Controllers
         [HttpGet]
         public IActionResult Buy(int? id)
         {
-            if (id == null) return RedirectToAction("Index");
-            ViewBag.PhoneId = id;
+            if (id == null) return RedirectToAction("Zakaz");
+            ViewBag.MenuId = id;
             return View();
         }
         [HttpPost]
