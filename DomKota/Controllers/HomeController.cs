@@ -13,9 +13,16 @@ namespace DomKota.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DishesContext context)
         {
             _logger = logger;
+            db = context;
+        }
+
+        DishesContext db;
+        public IActionResult Zakaz()
+        {
+            return View(db.Menus.ToList());
         }
 
         //Чтоб страницы не болели
@@ -41,6 +48,22 @@ namespace DomKota.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult Buy(int? id)
+        {
+            if (id == null) return RedirectToAction("Index");
+            ViewBag.PhoneId = id;
+            return View();
+        }
+        [HttpPost]
+        public string Buy(Order order)
+        {
+            db.Orders.Add(order);
+            // сохраняем в бд все изменения
+            db.SaveChanges();
+            return "Спасибо, " + order.User + ", за покупку!";
         }
     }
 }

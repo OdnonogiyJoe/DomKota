@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DomKota.Models.Menu>
+@{
+    ViewData["Title"] = "Список смартфонов";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Магазин смартфонов</title>
+</head>
+<body>
+    <h3>Смартфоны</h3>
+    <table>
+        <tr>
+            <td>Модель</td>
+            <td>Производитель</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        @foreach (var menu in Model)
+        {
+            <tr>
+                <td>@menu.Name</td>
+                <td>@menu.Description</td>
+                <td>@menu.Price</td>
+                <td><a href="~/Home/Buy/@menu.Id">Купить</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
